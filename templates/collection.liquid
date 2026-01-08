@@ -1,0 +1,44 @@
+{% paginate collection.products by 12 %}
+
+<div class="page-width">
+  <header class="collection-header">
+    <h1 class="collection-title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="collection-description rte">
+        {{ collection.description }}
+      </div>
+    {%- endif -%}
+  </header>
+
+  <div class="collection-sorting">
+    <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+    <select name="sort_by" id="SortBy" aria-describedby="a11y-refresh-page-message">
+      {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+      <option value="manual" {% if sort_by == 'manual' %}selected{% endif %}>{{ 'collections.sorting.featured' | t }}</option>
+      <option value="best-selling" {% if sort_by == 'best-selling' %}selected{% endif %}>{{ 'collections.sorting.best_selling' | t }}</option>
+      <option value="title-ascending" {% if sort_by == 'title-ascending' %}selected{% endif %}>{{ 'collections.sorting.az' | t }}</option>
+      <option value="title-descending" {% if sort_by == 'title-descending' %}selected{% endif %}>{{ 'collections.sorting.za' | t }}</option>
+      <option value="price-ascending" {% if sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collections.sorting.price_ascending' | t }}</option>
+      <option value="price-descending" {% if sort_by == 'price-descending' %}selected{% endif %}>{{ 'collections.sorting.price_descending' | t }}</option>
+      <option value="created-descending" {% if sort_by == 'created-descending' %}selected{% endif %}>{{ 'collections.sorting.date_descending' | t }}</option>
+    </select>
+  </div>
+
+  {%- if collection.products.size > 0 -%}
+    <div class="product-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      {% render 'pagination', paginate: paginate %}
+    {%- endif -%}
+  {%- else -%}
+    <div class="collection-empty">
+      <p>{{ 'collections.general.no_matches' | t }}</p>
+    </div>
+  {%- endif -%}
+</div>
+
+{% endpaginate %}

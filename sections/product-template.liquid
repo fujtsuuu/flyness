@@ -1,0 +1,71 @@
+<div class="product-single page-width">
+  <div class="product-single__grid">
+    
+    <div class="product-single__photos">
+      {%- for image in product.images -%}
+        <div class="product-single__photo">
+          <img src="{{ image | img_url: '800x' }}" 
+               alt="{{ image.alt | escape }}"
+               loading="lazy">
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="product-single__info">
+      <h1 class="product__title">{{ product.title }}</h1>
+
+      <div class="product__price">
+        <span class="product__price-current">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product__price-compare">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="product__description rte">
+          {{ product.description }}
+        </div>
+      {%- endif -%}
+
+      {% form 'product', product, class: 'product-form' %}
+        <select name="id" id="ProductSelect" class="product-form__input">
+          {%- for variant in product.variants -%}
+            <option value="{{ variant.id }}"
+                    {% unless variant.available %}disabled{% endunless %}>
+              {{ variant.title }} - {{ variant.price | money }}
+            </option>
+          {%- endfor -%}
+        </select>
+
+        <div class="product-form__quantity">
+          <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+          <input type="number" id="Quantity" name="quantity" value="1" min="1">
+        </div>
+
+        <button type="submit" 
+                name="add"
+                class="btn product-form__cart-submit"
+                {% unless product.available %}disabled{% endunless %}>
+          {%- if product.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {% endform %}
+
+      {%- if product.available -%}
+        <div class="product-single__policies rte">
+          {{ pages['shipping-returns'].content }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Template",
+  "settings": []
+}
+{% endschema %}
