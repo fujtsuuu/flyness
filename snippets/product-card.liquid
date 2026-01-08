@@ -1,0 +1,35 @@
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__link">
+    
+    {%- if product.featured_image -%}
+      <div class="product-card__image">
+        <img src="{{ product.featured_image | img_url: '400x' }}" 
+             alt="{{ product.title | escape }}"
+             loading="lazy">
+        
+        {%- if product.images[1] -%}
+          <img src="{{ product.images[1] | img_url: '400x' }}" 
+               alt="{{ product.title | escape }}"
+               class="product-card__image-hover"
+               loading="lazy">
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-badge">
+        {{ 'products.product.on_sale' | t }}
+      </span>
+    {%- endif -%}
+
+    <div class="product-card__info">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price">
+        <span class="product-card__price-current">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card__price-compare">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+</div>

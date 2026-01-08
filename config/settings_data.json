@@ -1,0 +1,35 @@
+{
+  "current": {
+    "color_primary": "#d4a373",
+    "color_secondary": "#f5e6d3",
+    "color_text": "#2c2c2c",
+    "type_header_font": "montserrat_n4",
+    "type_body_font": "montserrat_n4",
+    "social_facebook_link": "",
+    "social_instagram_link": "",
+    "social_twitter_link": "",
+    "social_pinterest_link": "",
+    "cart_type": "page",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "newsletter_heading": "Join Our Newsletter",
+          "newsletter_text": "Stay updated on new arrivals and exclusive offers",
+          "footer_menu_1_title": "Quick Links",
+          "footer_menu_1": "footer",
+          "footer_menu_2_title": "Customer Care"
+        }
+      }
+    },
+    "content_for_index": [
+      
+    ]
+  }
+}

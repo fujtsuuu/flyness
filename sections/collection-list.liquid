@@ -1,0 +1,73 @@
+<div class="collection-list page-width">
+  {%- if section.settings.title != blank -%}
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+  {%- endif -%}
+
+  <div class="collection-list__grid">
+    {%- for block in section.blocks -%}
+      {%- assign collection = collections[block.settings.collection] -%}
+      <div class="collection-list__item">
+        <a href="{{ collection.url }}" class="collection-list__link">
+          {%- if collection.image -%}
+            <div class="collection-list__image">
+              <img src="{{ collection.image | img_url: '600x' }}" 
+                   alt="{{ collection.title | escape }}"
+                   loading="lazy">
+            </div>
+          {%- elsif collection.products.first and collection.products.first.featured_image -%}
+            <div class="collection-list__image">
+              <img src="{{ collection.products.first.featured_image | img_url: '600x' }}" 
+                   alt="{{ collection.title | escape }}"
+                   loading="lazy">
+            </div>
+          {%- endif -%}
+          <h3 class="collection-list__title">{{ collection.title }}</h3>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection List",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Category"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

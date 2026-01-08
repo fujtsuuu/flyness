@@ -1,0 +1,17 @@
+<div class="product-recommendations page-width">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <h2 class="section-title">{{ 'products.recommendations.heading' | t }}</h2>
+    <div class="product-grid">
+      {%- for product in recommendations.products limit: 4 -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": []
+}
+{% endschema %}

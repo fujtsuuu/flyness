@@ -1,0 +1,124 @@
+<footer class="site-footer" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="footer-blocks">
+      
+      <div class="footer-block footer-block--newsletter">
+        <h3 class="footer__title">{{ section.settings.newsletter_heading }}</h3>
+        <p class="footer__text">{{ section.settings.newsletter_text }}</p>
+        {% form 'customer' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form">
+            <input type="email" 
+                   name="contact[email]" 
+                   placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                   class="newsletter-form__input"
+                   aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                   required>
+            <button type="submit" class="btn newsletter-form__button">
+              {{ 'general.newsletter_form.submit' | t }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <div class="footer-block">
+        <h4 class="footer__title">{{ section.settings.footer_menu_1_title }}</h4>
+        <ul class="footer-menu">
+          {%- for link in linklists[section.settings.footer_menu_1].links -%}
+            <li class="footer-menu__item">
+              <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-block">
+        <h4 class="footer__title">{{ section.settings.footer_menu_2_title }}</h4>
+        <ul class="footer-menu">
+          {%- for link in linklists[section.settings.footer_menu_2].links -%}
+            <li class="footer-menu__item">
+              <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-block">
+        <h4 class="footer__title">{{ 'layout.footer.social_heading' | t }}</h4>
+        <ul class="social-icons">
+          {%- if settings.social_facebook_link != blank -%}
+            <li class="social-icons__item">
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="social-icons__link">
+                <span class="visually-hidden">Facebook</span>
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if settings.social_instagram_link != blank -%}
+            <li class="social-icons__item">
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="social-icons__link">
+                <span class="visually-hidden">Instagram</span>
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}
+      </p>
+      <div class="footer__payment">
+        {%- for type in shop.enabled_payment_types -%}
+          {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Join Our Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "Stay updated on new arrivals and exclusive offers"
+    },
+    {
+      "type": "text",
+      "id": "footer_menu_1_title",
+      "label": "Menu 1 heading",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_1",
+      "label": "Menu 1",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "footer_menu_2_title",
+      "label": "Menu 2 heading",
+      "default": "Customer Care"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_2",
+      "label": "Menu 2"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,107 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "close": "Close",
+      "refresh_page": "Choosing a selection results in a full page refresh."
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "newsletter_form": {
+      "email_placeholder": "Your email",
+      "submit": "Subscribe"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "menu": "Menu",
+      "search": "Search",
+      "account": "Account"
+    },
+    "customer": {
+      "account": "Account",
+      "log_in": "Log in"
+    },
+    "footer": {
+      "social_heading": "Follow Us"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      }
+    },
+    "cart": {
+      "cart_error": "There was an error updating your cart. Please try again.",
+      "quantity_error": "You can only add {{ quantity }} of this item to your cart."
+    },
+    "featured_collection": {
+      "view_all": "View All"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "on_sale": "Sale"
+    },
+    "recommendations": {
+      "heading": "You May Also Like"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "Sorry, there are no products in this collection"
+    },
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best Selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_descending": "Date, new to old",
+      "date_ascending": "Date, old to new"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "remove": "Remove",
+      "note": "Order Notes",
+      "subtotal": "Subtotal",
+      "update": "Update Cart",
+      "checkout": "Proceed to Checkout",
+      "empty": "Your cart is currently empty",
+      "continue_shopping": "Continue Shopping"
+    },
+    "label": {
+      "quantity": "Quantity"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My Account"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    }
+  }
+}
