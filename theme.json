@@ -1,0 +1,33 @@
+{
+  "name": "Flyness - Women's Fashion Boutique",
+  "version": "1.0.0",
+  "theme_name": "Flyness",
+  "theme_version": "1.0.0",
+  "theme_author": "Women's Fashion Collective",
+  "theme_documentation_url": "",
+  "theme_support_url": "",
+  "description": "A stunning Shopify theme designed specifically for women's fashion boutiques. Features vibrant 3D animations, interactive product displays, and elegant design elements that create an immersive shopping experience. Perfect for modern fashion brands looking to stand out.",
+  "features": [
+    "3D Product Animations",
+    "Interactive Hover Effects",
+    "Vibrant Color Schemes",
+    "Glassmorphism Design",
+    "Parallax Scrolling",
+    "Responsive Design",
+    "Fast Loading",
+    "SEO Optimized",
+    "Multiple Product Views",
+    "Advanced Typography",
+    "Color Swatches",
+    "Quick View",
+    "Wishlist Integration",
+    "Product Recommendations"
+  ],
+  "styles": {
+    "primary_color": "#f5576c",
+    "secondary_color": "#667eea",
+    "accent_color": "#f093fb",
+    "text_color": "#333333",
+    "background_color": "#ffffff"
+  }
+}

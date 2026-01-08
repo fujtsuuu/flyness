@@ -31,6 +31,38 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
 
+    {% comment %} Women's Fashion Store - 3D Animations {% endcomment %}
+    <link rel="stylesheet" href="{{ '3d-animations.css' | asset_url }}" media="all">
+    <script src="{{ 'womens-fashion-3d.js' | asset_url }}" defer></script>
+    
+    <style>
+      /* Global 3D perspective for the body */
+      body {
+        perspective: 1500px;
+        overflow-x: hidden;
+      }
+      
+      /* Animated gradient background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(-45deg, #f093fb15, #f5576c15, #667eea15, #23d5ab15);
+        background-size: 400% 400%;
+        animation: gradient-shift 15s ease infinite;
+        z-index: -1;
+        pointer-events: none;
+      }
+      
+      /* Ensure smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
     {% endif %}
