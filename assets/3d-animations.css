@@ -1,21 +1,36 @@
 /* 3D Animation Styles for Women's Clothing Store */
 
-/* Floating Animation Keyframes */
+/* Enhanced Floating Animation */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px) rotateZ(0deg);
+    transform: translateY(0px) translateZ(0px) rotateZ(0deg);
+  }
+  25% {
+    transform: translateY(-15px) translateZ(20px) rotateZ(1deg);
   }
   50% {
-    transform: translateY(-20px) rotateZ(2deg);
+    transform: translateY(-30px) translateZ(40px) rotateZ(0deg);
+  }
+  75% {
+    transform: translateY(-15px) translateZ(20px) rotateZ(-1deg);
   }
 }
 
 @keyframes float-slow {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) scale(1);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-20px) scale(1.02);
+  }
+}
+
+@keyframes bounce-3d {
+  0%, 100% {
+    transform: translateZ(0px);
+  }
+  50% {
+    transform: translateZ(50px);
   }
 }
 
@@ -41,22 +56,23 @@
   }
 }
 
-/* 3D Card Flip Effect */
+/* Enhanced 3D Card Flip Effect */
 .collection-card-3d {
-  perspective: 1000px;
+  perspective: 1500px;
   height: 100%;
+  cursor: pointer;
 }
 
 .collection-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform-style: preserve-3d;
 }
 
 .collection-card-3d:hover .collection-card-inner {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) scale(1.05);
 }
 
 .collection-card-front,
@@ -65,30 +81,54 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 .collection-card-back {
   transform: rotateY(180deg);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-/* 3D Tilt Effect on Hover */
+/* Enhanced 3D Tilt Effect on Hover */
 .product-card-3d {
   transform-style: preserve-3d;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform;
+  position: relative;
+}
+
+.product-card-3d::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 10%;
+  width: 80%;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  filter: blur(15px);
+  transition: opacity 0.4s ease;
+  opacity: 0;
+  border-radius: 50%;
 }
 
 .product-card-3d:hover {
-  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+  transform: perspective(1200px) rotateX(10deg) rotateY(-10deg) translateZ(40px) scale(1.05);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.product-card-3d:hover::after {
+  opacity: 1;
 }
 
 /* Floating Elements */
