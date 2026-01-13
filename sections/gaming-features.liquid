@@ -1,0 +1,181 @@
+{{ 'gaming-features.css' | asset_url | stylesheet_tag }}
+
+<div class="gaming-features-section section-{{ section.id }}-padding"
+     data-section-id="{{ section.id }}"
+     style="background: {{ section.settings.bg_color }};">
+  
+  <div class="gaming-features__container page-width">
+    
+    <!-- Section Header -->
+    {% if section.settings.heading != blank %}
+      <div class="gaming-features__header">
+        <h2 class="gaming-features__heading">{{ section.settings.heading }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="gaming-features__description">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Features Grid -->
+    <div class="gaming-features__grid">
+      {% for block in section.blocks %}
+        <div class="gaming-feature-card" 
+             data-index="{{ forloop.index }}"
+             {{ block.shopify_attributes }}>
+          
+          <div class="gaming-feature-card__inner">
+            
+            <!-- Icon with 3D effect -->
+            <div class="gaming-feature-card__icon">
+              {% if block.settings.icon_svg != blank %}
+                {{ block.settings.icon_svg }}
+              {% elsif block.settings.icon_image %}
+                <img src="{{ block.settings.icon_image | image_url: width: 200 }}" 
+                     alt="{{ block.settings.title }}"
+                     loading="lazy">
+              {% else %}
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width="2"/>
+                  <path d="M20 30L27 37L40 24" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% endif %}
+              
+              <!-- Rotating ring effect -->
+              <div class="gaming-feature-card__ring"></div>
+              <div class="gaming-feature-card__ring gaming-feature-card__ring--2"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="gaming-feature-card__content">
+              {% if block.settings.title != blank %}
+                <h3 class="gaming-feature-card__title">{{ block.settings.title }}</h3>
+              {% endif %}
+              
+              {% if block.settings.description != blank %}
+                <p class="gaming-feature-card__description">{{ block.settings.description }}</p>
+              {% endif %}
+
+              {% if block.settings.link_text != blank and block.settings.link_url != blank %}
+                <a href="{{ block.settings.link_url }}" class="gaming-feature-card__link">
+                  {{ block.settings.link_text }}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              {% endif %}
+            </div>
+
+            <!-- Particle effect -->
+            <div class="gaming-feature-card__particles"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Background effects -->
+  <div class="gaming-features__bg-effect"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Gaming Features",
+  "tag": "section",
+  "class": "section-gaming-features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Experience the ultimate gaming advantage"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0a0e27"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG Code"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fast Delivery"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Get your gaming gear delivered within 24 hours"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gaming Features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lightning Fast",
+            "description": "High-performance gear for instant response times"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Pro Quality",
+            "description": "Tournament-grade equipment trusted by esports athletes"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "RGB Everything",
+            "description": "Customizable lighting to match your setup"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Warranty",
+            "description": "2-year coverage on all gaming accessories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

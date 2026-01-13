@@ -1,0 +1,252 @@
+{{ 'gaming-3d.css' | asset_url | stylesheet_tag }}
+
+<div class="gaming-hero {% if section.settings.full_width %}gaming-hero--full-width{% endif %}" 
+     data-section-id="{{ section.id }}"
+     style="background: {{ section.settings.bg_gradient }};">
+  
+  <!-- Animated Background Elements -->
+  <div class="gaming-particles"></div>
+  <div class="gaming-grid-bg"></div>
+  
+  <div class="gaming-hero__container page-width{% if section.settings.full_width %} page-width--full{% endif %}">
+    
+    <!-- 3D Floating Products -->
+    <div class="gaming-hero__products-3d">
+      {% for block in section.blocks %}
+        {% if block.type == 'floating_product' %}
+          <div class="floating-product floating-product--{{ forloop.index }}" 
+               data-speed="{{ block.settings.float_speed }}"
+               {{ block.shopify_attributes }}>
+            {% if block.settings.product_image %}
+              <img src="{{ block.settings.product_image | image_url: width: 600 }}" 
+                   alt="{{ block.settings.product_image.alt | escape }}"
+                   loading="lazy"
+                   class="floating-product__image">
+            {% endif %}
+            
+            <!-- Glow Effect -->
+            <div class="floating-product__glow" style="--glow-color: {{ block.settings.glow_color }};"></div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="gaming-hero__content">
+      {% if section.settings.top_text != blank %}
+        <p class="gaming-hero__top-text animate-slide-in">
+          {{ section.settings.top_text }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="gaming-hero__heading animate-glitch" data-text="{{ section.settings.heading }}">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <div class="gaming-hero__subheading animate-fade-in-up">
+          {{ section.settings.subheading }}
+        </div>
+      {% endif %}
+
+      <!-- CTA Buttons -->
+      <div class="gaming-hero__buttons animate-fade-in-up">
+        {% if section.settings.button_label_1 != blank %}
+          <a href="{{ section.settings.button_link_1 }}" 
+             class="gaming-button gaming-button--primary"
+             {% if section.settings.button_link_1 == blank %}role="button"{% endif %}>
+            <span class="gaming-button__text">{{ section.settings.button_label_1 }}</span>
+            <span class="gaming-button__glow"></span>
+            <span class="gaming-button__particles"></span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.button_label_2 != blank %}
+          <a href="{{ section.settings.button_link_2 }}" 
+             class="gaming-button gaming-button--secondary"
+             {% if section.settings.button_link_2 == blank %}role="button"{% endif %}>
+            <span class="gaming-button__text">{{ section.settings.button_label_2 }}</span>
+            <span class="gaming-button__glow"></span>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Stats Counter (Optional) -->
+      {% if section.settings.show_stats %}
+        <div class="gaming-hero__stats">
+          <div class="gaming-stat">
+            <span class="gaming-stat__number" data-count="{{ section.settings.stat_1_number }}">0</span>
+            <span class="gaming-stat__label">{{ section.settings.stat_1_label }}</span>
+          </div>
+          <div class="gaming-stat">
+            <span class="gaming-stat__number" data-count="{{ section.settings.stat_2_number }}">0</span>
+            <span class="gaming-stat__label">{{ section.settings.stat_2_label }}</span>
+          </div>
+          <div class="gaming-stat">
+            <span class="gaming-stat__number" data-count="{{ section.settings.stat_3_number }}">0</span>
+            <span class="gaming-stat__label">{{ section.settings.stat_3_label }}</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="gaming-hero__scroll-indicator">
+      <div class="scroll-arrow"></div>
+      <span>Scroll to Explore</span>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'gaming-3d.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Gaming Hero",
+  "tag": "section",
+  "class": "section-gaming-hero",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width (mobile optimized)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "top_text",
+      "label": "Top Text",
+      "default": "LEVEL UP YOUR GAME"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ULTIMATE GAMING GEAR"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Premium accessories designed for champions. Elevate your gaming experience with cutting-edge technology.</p>"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_gradient",
+      "label": "Background Gradient",
+      "default": "linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%)"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 Label",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show Statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Stat 1 Number",
+      "default": "50000"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 Label",
+      "default": "Gamers"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Stat 2 Number",
+      "default": "500"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "Products"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Stat 3 Number",
+      "default": "99"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 Label",
+      "default": "% Satisfaction"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "floating_product",
+      "name": "Floating Product",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "range",
+          "id": "float_speed",
+          "label": "Float Speed",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "color",
+          "id": "glow_color",
+          "label": "Glow Color",
+          "default": "#00ffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gaming Hero",
+      "blocks": [
+        {
+          "type": "floating_product"
+        },
+        {
+          "type": "floating_product"
+        },
+        {
+          "type": "floating_product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

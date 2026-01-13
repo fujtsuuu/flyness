@@ -1,0 +1,364 @@
+/* Gaming Features Section - Mobile First */
+
+.gaming-features-section {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.gaming-features__container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== HEADER ===== */
+.gaming-features__header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.gaming-features__heading {
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-secondary), var(--gaming-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gaming-features__description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== FEATURES GRID ===== */
+.gaming-features__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 0 15px;
+}
+
+@media screen and (min-width: 640px) {
+  .gaming-features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .gaming-features__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 0;
+  }
+}
+
+/* ===== FEATURE CARD ===== */
+.gaming-feature-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.gaming-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 255, 0.1) 0%, 
+    rgba(255, 0, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.gaming-feature-card:hover::before {
+  opacity: 1;
+}
+
+.gaming-feature-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--gaming-primary);
+  box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2),
+              0 0 60px rgba(0, 255, 255, 0.1);
+}
+
+/* Staggered animation on scroll */
+.gaming-feature-card[data-index="1"] {
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.gaming-feature-card[data-index="2"] {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.gaming-feature-card[data-index="3"] {
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.gaming-feature-card[data-index="4"] {
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.gaming-feature-card__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== ICON WITH 3D EFFECT ===== */
+.gaming-feature-card__icon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gaming-primary);
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.gaming-feature-card:hover .gaming-feature-card__icon {
+  transform: rotateY(360deg);
+}
+
+.gaming-feature-card__icon svg,
+.gaming-feature-card__icon img {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px var(--gaming-glow));
+}
+
+/* ===== ROTATING RINGS ===== */
+.gaming-feature-card__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--gaming-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  animation: ringRotate 4s linear infinite;
+}
+
+.gaming-feature-card__ring--2 {
+  width: 120%;
+  height: 120%;
+  border-color: var(--gaming-secondary);
+  animation-duration: 6s;
+  animation-direction: reverse;
+}
+
+@keyframes ringRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.gaming-feature-card:hover .gaming-feature-card__ring {
+  animation-duration: 2s;
+}
+
+.gaming-feature-card:hover .gaming-feature-card__ring--2 {
+  animation-duration: 3s;
+}
+
+/* ===== CONTENT ===== */
+.gaming-feature-card__content {
+  position: relative;
+  z-index: 2;
+}
+
+.gaming-feature-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.gaming-feature-card:hover .gaming-feature-card__title {
+  color: var(--gaming-primary);
+}
+
+.gaming-feature-card__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.gaming-feature-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gaming-primary);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.gaming-feature-card__link svg {
+  transition: transform 0.3s ease;
+}
+
+.gaming-feature-card__link:hover {
+  color: var(--gaming-secondary);
+}
+
+.gaming-feature-card__link:hover svg {
+  transform: translateX(5px);
+}
+
+/* ===== PARTICLE EFFECT ===== */
+.gaming-feature-card__particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.3) 0%, transparent 3%),
+    radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.3) 0%, transparent 3%),
+    radial-gradient(circle at 50% 50%, rgba(0, 255, 0, 0.3) 0%, transparent 3%),
+    radial-gradient(circle at 10% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 3%),
+    radial-gradient(circle at 90% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 3%);
+  animation: particlesFloat 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.gaming-feature-card:hover .gaming-feature-card__particles {
+  opacity: 1;
+}
+
+@keyframes particlesFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ===== BACKGROUND EFFECTS ===== */
+.gaming-features__bg-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: bgPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes bgPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media screen and (max-width: 768px) {
+  .gaming-features-section {
+    padding: 60px 0;
+  }
+
+  .gaming-features__header {
+    margin-bottom: 40px;
+  }
+
+  .gaming-features__grid {
+    gap: 20px;
+  }
+
+  .gaming-feature-card {
+    padding: 30px 20px;
+  }
+
+  .gaming-feature-card__icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .gaming-feature-card__icon svg,
+  .gaming-feature-card__icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gaming-feature-card__title {
+    font-size: 18px;
+  }
+
+  .gaming-feature-card__description {
+    font-size: 13px;
+  }
+
+  .gaming-features__bg-effect {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+/* Touch optimization */
+@media (hover: none) and (pointer: coarse) {
+  .gaming-feature-card:active {
+    transform: translateY(-5px);
+    border-color: var(--gaming-primary);
+  }
+}
+
+/* Performance optimization */
+@media (prefers-reduced-motion: reduce) {
+  .gaming-feature-card__ring {
+    animation: none;
+  }
+  
+  .gaming-features__bg-effect {
+    animation: none;
+  }
+  
+  .gaming-feature-card:hover .gaming-feature-card__icon {
+    transform: none;
+  }
+}

@@ -1,0 +1,299 @@
+{{ 'gaming-products.css' | asset_url | stylesheet_tag }}
+
+<div class="gaming-products-section section-{{ section.id }}-padding" 
+     data-section-id="{{ section.id }}"
+     style="background: {{ section.settings.bg_color }};">
+  
+  <div class="gaming-products__container page-width">
+    
+    <!-- Section Header -->
+    <div class="gaming-products__header">
+      {% if section.settings.subheading != blank %}
+        <span class="gaming-products__subheading glow-text">{{ section.settings.subheading }}</span>
+      {% endif %}
+      
+      {% if section.settings.heading != blank %}
+        <h2 class="gaming-products__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <div class="gaming-products__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="gaming-products__grid" 
+         data-columns-mobile="{{ section.settings.columns_mobile }}"
+         data-columns-tablet="{{ section.settings.columns_tablet }}"
+         data-columns-desktop="{{ section.settings.columns_desktop }}">
+      
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'product' %}
+            {% if block.settings.product != blank %}
+              {% assign product = block.settings.product %}
+              
+              <div class="gaming-product-card" 
+                   data-product-id="{{ product.id }}"
+                   {{ block.shopify_attributes }}>
+                
+                <!-- Card Inner with 3D effect -->
+                <div class="gaming-product-card__inner">
+                  
+                  <!-- Product Image with Hover Effect -->
+                  <div class="gaming-product-card__media">
+                    <a href="{{ product.url }}" class="gaming-product-card__link">
+                      {% if product.featured_media %}
+                        <img src="{{ product.featured_media | image_url: width: 800 }}"
+                             alt="{{ product.featured_media.alt | escape }}"
+                             loading="lazy"
+                             class="gaming-product-card__image">
+                        
+                        <!-- Hover Image -->
+                        {% if product.media[1] %}
+                          <img src="{{ product.media[1] | image_url: width: 800 }}"
+                               alt="{{ product.media[1].alt | escape }}"
+                               loading="lazy"
+                               class="gaming-product-card__image gaming-product-card__image--hover">
+                        {% endif %}
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </a>
+                    
+                    <!-- Neon Border Effect -->
+                    <div class="gaming-product-card__neon-border"></div>
+                    
+                    <!-- Quick Add Button -->
+                    {% if section.settings.show_quick_add %}
+                      <button class="gaming-quick-add" 
+                              data-product-id="{{ product.id }}"
+                              aria-label="Quick add {{ product.title }}">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Quick Add</span>
+                      </button>
+                    {% endif %}
+
+                    <!-- Product Badge -->
+                    {% if product.available == false %}
+                      <span class="gaming-badge gaming-badge--sold-out">Sold Out</span>
+                    {% elsif product.compare_at_price > product.price %}
+                      <span class="gaming-badge gaming-badge--sale">Sale</span>
+                    {% elsif block.settings.badge_text != blank %}
+                      <span class="gaming-badge gaming-badge--custom">{{ block.settings.badge_text }}</span>
+                    {% endif %}
+                  </div>
+
+                  <!-- Product Info -->
+                  <div class="gaming-product-card__info">
+                    <h3 class="gaming-product-card__title">
+                      <a href="{{ product.url }}">{{ product.title }}</a>
+                    </h3>
+
+                    {% if section.settings.show_vendor and product.vendor != blank %}
+                      <div class="gaming-product-card__vendor">{{ product.vendor }}</div>
+                    {% endif %}
+
+                    <!-- Price -->
+                    <div class="gaming-product-card__price">
+                      {% if product.compare_at_price > product.price %}
+                        <span class="gaming-price gaming-price--regular">
+                          {{ product.compare_at_price | money }}
+                        </span>
+                        <span class="gaming-price gaming-price--sale">
+                          {{ product.price | money }}
+                        </span>
+                      {% else %}
+                        <span class="gaming-price">
+                          {{ product.price | money }}
+                        </span>
+                      {% endif %}
+                    </div>
+
+                    <!-- Rating (if using reviews app) -->
+                    {% if section.settings.show_rating %}
+                      <div class="gaming-product-card__rating">
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                      </div>
+                    {% endif %}
+
+                    <!-- Color Swatches -->
+                    {% if section.settings.show_color_swatches %}
+                      {% assign color_option = product.options_with_values | where: "name", "Color" | first %}
+                      {% if color_option %}
+                        <div class="gaming-product-card__swatches">
+                          {% for value in color_option.values limit: 4 %}
+                            <span class="gaming-swatch" 
+                                  style="background-color: {{ value | handle }};"
+                                  title="{{ value }}"></span>
+                          {% endfor %}
+                          {% if color_option.values.size > 4 %}
+                            <span class="gaming-swatch gaming-swatch--more">+{{ color_option.values.size | minus: 4 }}</span>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Glow Effect on Hover -->
+                <div class="gaming-product-card__glow"></div>
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <!-- View All Button -->
+    {% if section.settings.button_label != blank %}
+      <div class="gaming-products__footer">
+        <a href="{{ section.settings.button_link }}" class="gaming-button gaming-button--outline">
+          <span>{{ section.settings.button_label }}</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="{{ 'gaming-products.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Gaming Products",
+  "tag": "section",
+  "class": "section-gaming-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "FEATURED GEAR"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Top Gaming Accessories"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0a0e27"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns on Mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns on Tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on Desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Product Rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "label": "Show Color Swatches",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Enable Quick Add",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "View All Products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Custom Badge Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gaming Products",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
